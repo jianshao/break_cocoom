@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles/globals.css";
-import {Providers} from "./providers";
+import './globals.css'; // 你的全局 CSS 文件路径
+import { NextUIProvider } from '@nextui-org/react';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
+        <NextUIProvider>
           {children}
-        </Providers>
+        </NextUIProvider>
       </body>
     </html>
   );
