@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.4",
     "@nextui-org/react": "^2.3.6",
     "framer-motion": "^11.2.4",
+    "lottie-react": "^2.4.0",
+    "lottie-web": "^5.12.2",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
     "react": "^18",

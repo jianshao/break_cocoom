@@ -1,8 +1,11 @@
 'use client'
-import { Button, Radio, RadioGroup, Spacer } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalHeader, Radio, RadioGroup, Spacer, useDisclosure } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { randomInt } from "../utils";
 import { Send } from "lucide-react";
+import Animation from '../components/Animation'
+import superise from '@/images/animations/suprise.json'
+import loading from '@/images/animations/loading.json'
 
 type ValidTopic = {
     topics: string[],
@@ -51,6 +54,7 @@ export default function MainPage() {
         { name: "Youtube", websit: "https://www.youtube.com/results?search_query=" },
         { name: "Tiwtter", websit: "https://twitter.com/search?q=" },
     ]
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     function getTopics(vallidTopics: ValidTopic | undefined) {
         console.log(vallidTopics);
@@ -94,7 +98,7 @@ export default function MainPage() {
                 <Spacer y={16} />
                 <div className="flex flex-row gap-1">
                     <Button color="success" endContent={<Send />} onPress={(e) => {
-                        getTopics(vallidTopics);
+                        onOpen();
                     }}>Inspire Me</Button>
                 </div>
 
@@ -137,6 +141,29 @@ export default function MainPage() {
                     </div>
                 </div>
             </main>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalBody>
+                                <Animation
+                                    animationData={loading}
+                                    loop={false}
+                                    autoplay={true}
+                                    events={[{ name: "complete", handler: ()=>{
+                                        getTopics(vallidTopics);
+                                        setTopic("");
+                                        onClose();
+                                    } }]}
+                                ></Animation>
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+                <ModalContent >
+                    <div></div>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
